@@ -30,4 +30,4 @@ COPY conf/* /opt/solr/example/solr/collection1/conf/
 EXPOSE 8983
 WORKDIR /opt/solr/example
 ENTRYPOINT ["java"]
-CMD ["-Xmx512m", "-DSTOP.PORT=8079", "-DSTOP.KEY=stopkey", "-jar", "start.jar"]
+CMD ["-Xmx256m", "-DSTOP.PORT=8079", "-DSTOP.KEY=stopkey", "-jar", "start.jar"]
