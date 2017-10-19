@@ -5,6 +5,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV SOLR_VERSION 4.10.4
 ENV SOLR solr-$SOLR_VERSION
 
+RUN mkdir /docker-entrypoint-initdb.d
+
 # install java and wget
 RUN apt-get update && \
     apt-get install -y \
@@ -26,8 +28,9 @@ RUN mkdir -p /opt && \
 
 # Copy search_api_solr 4.x configuration
 COPY conf/* /opt/solr/example/solr/collection1/conf/
+COPY docker-entrypoint.sh /usr/local/bin
 
 EXPOSE 8983
 WORKDIR /opt/solr/example
-ENTRYPOINT ["java"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["-Xmx256m", "-DSTOP.PORT=8079", "-DSTOP.KEY=stopkey", "-jar", "start.jar"]
